@@ -36,7 +36,7 @@ The [OpenShift](https://www.openshift.com) [Pipeline](https://jenkins.io/solutio
 DSL Plugin is presently an experimental Jenkins plugin which aims to provide a readable, concise, comprehensive, and fluent 
 [Jenkins Pipeline](https://jenkins.io/doc/book/pipeline/) syntax for rich interactions with an OpenShift API Server. The 
 plugin leverages an OpenShift command line tool (oc) which must be available on the nodes executing the script
-(options for getting the binary on your nodes can be found [here](#setting-up-nodes).
+(options for getting the binary on your nodes can be found [here](#setting-up-nodes)).
 
 If you are interested in a non-experimental Jenkins plugin, find it
 [here](https://github.com/openshift/jenkins-plugin).  
@@ -552,7 +552,7 @@ should be automatically instead when a node requires them.
 In the following example, a logical name "oc1.3.2" is associated with a particular
 build of the [client tools available on github](https://github.com/openshift/origin/releases).
 
-![tool-config-by-url](sr/readme/images/tool-config-by-url.png)
+![tool-config-by-url](src/readme/images/tool-config-by-url.png)
 
 Using this tool is then a simple matter of executing the OpenShift operations with
 the PATH adjusted to give it preference. If configured as above, the client tools
