@@ -16,6 +16,7 @@ import org.jenkinsci.plugins.workflow.steps.StepContextParameter;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import javax.inject.Inject;
+import java.io.InputStream;
 import java.util.List;
 
 public class OcWatch extends AbstractStepImpl {
@@ -117,7 +118,10 @@ public class OcWatch extends AbstractStepImpl {
                             long outputSize = 0;
                             do {
 
-                                byte[] newOutput = IOUtils.toByteArray( stderrTmp.readFromOffset( outputSize ) );
+                                byte[] newOutput;
+                                try (InputStream is = stderrTmp.readFromOffset( outputSize )) {
+                                    newOutput = IOUtils.toByteArray( is );
+                                }
                                 outputSize += newOutput.length;
 
                                 if ( newOutput.length > 0 || firstPass ) {

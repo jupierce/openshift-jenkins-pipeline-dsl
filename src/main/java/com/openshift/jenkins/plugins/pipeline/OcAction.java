@@ -21,6 +21,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -177,7 +178,10 @@ public class OcAction extends AbstractStepImpl {
                 long reCheckSleep = 250;
                 while ( dtc.exitStatus(filePath,launcher) == null ) {
                     Thread.sleep(reCheckSleep);
-                    byte[] newOutput = IOUtils.toByteArray( stdoutTmp.readFromOffset( stdOut.size() ) );
+                    byte[] newOutput;
+                    try (InputStream is = stdoutTmp.readFromOffset( stdOut.size() )) {
+                        newOutput = IOUtils.toByteArray( is );
+                    }
                     stdOut.write( newOutput );
                     if ( newOutput.length > 0 && step.streamStdOutToConsolePrefix != null) {
                         printToConsole( new String(newOutput) );
@@ -190,14 +194,19 @@ public class OcAction extends AbstractStepImpl {
                     }
                 }
 
-                byte[] newOutput = IOUtils.toByteArray( stdoutTmp.readFromOffset( stdOut.size() ) );
+                byte[] newOutput;
+                try (InputStream is = stdoutTmp.readFromOffset( stdOut.size() )) {
+                    newOutput = IOUtils.toByteArray( is );
+                }
                 stdOut.write( newOutput );
                 if ( step.streamStdOutToConsolePrefix != null ) {
                     printToConsole( new String(newOutput) );
                     listener.getLogger().println(); // final newline if output does not contain it.
                 }
 
-                stdErr.write( IOUtils.toByteArray( stderrTmp.read() ) );
+                try (InputStream is = stderrTmp.read()) {
+                    stdErr.write( IOUtils.toByteArray( is ) );
+                }
 
                 OcActionResult result = new OcActionResult();
                 result.verb = step.cmdBuilder.verb;
