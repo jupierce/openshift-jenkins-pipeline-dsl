@@ -138,7 +138,7 @@ openshift.withCluster( 'mycluster' ) {
     openshift.selector( 'deploymentconfig/frontend' ).describe()
     
     // Or Kind + Label information
-    openshift.selector( 'dc', [ tier: 'fontend' ] ).describe()
+    openshift.selector( 'dc', [ tier: 'frontend' ] ).describe()
     
 }
 ```
@@ -217,7 +217,7 @@ openshift.withCluster( 'mycluster' ) {
     // we find it? The 'related(kind)' operation can create an appropriate Selector for us.
     def builds = bc.related('builds')
 
-    // There are no guarantees in life, so let's interrupt these operatoins if they
+    // There are no guarantees in life, so let's interrupt these operations if they
     // take more than 10 minutes and fail this script.
     timeout(10) {
     
@@ -548,7 +548,7 @@ This token can then be selected as the default token for a given Jenkins configu
 cluster OR used tactically in the DSL with openshift.doAs( 'my-privileged-credential-id' ) {...} .
 
 ## Setting up Nodes
-Each node must have a copy of the OpenShift command line tool (oc) installed and in the
+Each Jenkins node (master/agents) must have a copy of the OpenShift command line tool (oc) installed and in the
 Jenkins PATH environment variable. If your Jenkins nodes are running OpenShift images,
 stop reading here: they are already installed!
 
