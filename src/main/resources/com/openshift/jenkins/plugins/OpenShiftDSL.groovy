@@ -435,7 +435,7 @@ class OpenShiftDSL implements Serializable {
      *          the parameter will be returned, unchanged.
      */
     @NonCPS
-    public HashMap toSingleObject(Object obj ) {
+    public Object toSingleObject(Object obj ) {
         if ( obj instanceof List == false ) {
             return obj;
         }
