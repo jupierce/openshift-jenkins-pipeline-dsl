@@ -66,7 +66,7 @@ Let's start with a "Hello world" style example.
 /** Use of hostnames and OAuth token values in the DSL is heavily discouraged for maintenance and **/
 /** security reasons. The global Jenkins configuration and credential store should be used instead. **/
 /** Subsequent examples will demonstrate how to do this. **/
-openshift.withCluster( 'https://https://10.13.137.207:8443', 'CO8wPaLV2M2yC_jrm00hCmaz5Jgw...' ) {
+openshift.withCluster( 'https://10.13.137.207:8443', 'CO8wPaLV2M2yC_jrm00hCmaz5Jgw...' ) {
     openshift.withProject( 'myproject' ) {
         echo "Hello from project: ${openshift.project()}"
     }
